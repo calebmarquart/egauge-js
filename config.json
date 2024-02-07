@@ -15,5 +15,6 @@
         "V": 0.001,
         "v": 0.001,
         "PQ": 0.001
-    }
+    },
+    "timestamp_format": "YYYY-MM-DD HH:mm:ss"
 }

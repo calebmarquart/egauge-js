@@ -58,11 +58,11 @@ class Device {
      * @param {Object} params An object of URL params where the keys are the param name and values are the values
      * @returns {Promise<Object>} The data object returned from the response
      */
-    async getRequest(endpoint, params) {
+    async getRequest(endpoint, params = {}) {
         const token = await this.getToken();
         const urlParams = new URLSearchParams(params);
 
-        const url = `https://${this.eGaugeID}.d.egauge.net/api/${endpoint}?${urlParams}`;
+        const url = `https://${this.eGaugeID}.d.egauge.net/api${endpoint}?${urlParams}`;
 
         const response = await fetch(url, {
             method: 'GET',
@@ -103,7 +103,7 @@ class Device {
             time: `${unix - interval}:${interval}:${unix}`,
         };
 
-        const data = await this.getRequest('register', params);
+        const data = await this.getRequest('/register', params);
 
         const rows = data.ranges[0].rows;
         const regCount = data.registers.length;
@@ -135,7 +135,7 @@ class Device {
             time: `${startUnix - interval}:${interval}:${endUnix}`,
         };
 
-        const data = await this.getRequest('register', params);
+        const data = await this.getRequest('/register', params);
 
         const rows = data.ranges[0].rows;
 
@@ -159,6 +159,16 @@ class Device {
         }
 
         return registers;
+    }
+
+    /**
+     * Gets the time when the meter started recording, known as the epoch.
+     *
+     * @returns {Promise<Number>} The UNIX timestamp for the meter epoch
+     */
+    async getEpoch() {
+        const data = await this.getRequest('/config/db/epoch');
+        return parseInt(data.result);
     }
 }
 
