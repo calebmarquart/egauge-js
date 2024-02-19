@@ -17,9 +17,9 @@ class Device {
     /**
      * A class that contains all the methods for interacting with the eGauge JSON API.
      *
-     * @param {String} eGaugeID The identifier of the eGauge
-     * @param {String} username The username of the account
-     * @param {String} password The password of the account
+     * @param {String} eGaugeID The identifier of the eGauge.
+     * @param {String} username The username of the account.
+     * @param {String} password The password of the account.
      */
     constructor(eGaugeID, username, password) {
         this.eGaugeID = eGaugeID;
@@ -31,6 +31,7 @@ class Device {
      * Gets a JWT authorization token for the eGauge device.
      *
      * @param {Boolean} refresh Option to force refresh the token, for example if 401 error is returned elsewhere (default false)
+     * @returns {Promise<String>} The JWT token for eGauge authentication.
      */
     async getToken(refresh = false) {
         if (
@@ -110,7 +111,7 @@ class Device {
         const end = rows[0] ?? new Array(regCount).fill(0);
         const start = rows[1] ?? end;
 
-        let registers = {};
+        const registers = {};
 
         for (let i = 0; i < regCount; i++) {
             const { name, type } = data.registers[i];
@@ -142,7 +143,7 @@ class Device {
         const rowCount = rows.length;
         const regCount = data.registers.length;
 
-        let registers = {};
+        const registers = {};
 
         for (let i = 0; i < regCount; i++) {
             const { name, type } = data.registers[i];
@@ -169,6 +170,29 @@ class Device {
     async getEpoch() {
         const data = await this.getRequest('/config/db/epoch');
         return parseInt(data.result);
+    }
+
+    /**
+     * Gets the instantaneous rate data from eGauge.
+     *
+     * @returns {Promise<Object>} The register response object.
+     */
+    async getValuesNow() {
+        const params = {
+            rate: '',
+        };
+
+        const data = await this.getRequest('/register', params);
+
+        const registers = {};
+
+        for (const register of data.registers) {
+            const { name, rate } = register;
+            const value = round(rate);
+            registers[name] = value;
+        }
+
+        return registers;
     }
 }
 

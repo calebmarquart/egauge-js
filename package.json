@@ -1,14 +1,19 @@
 {
     "name": "egauge-js",
     "version": "1.0.0",
-    "description": "",
+    "description": "An API wrapper for the eGauge JSON Web API",
     "main": "index.js",
     "scripts": {
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "eGauge",
+        "API Wrapper",
+        "JavaScript"
+    ],
+    "author": "Caleb Marquart",
+    "license": "MIT",
     "dependencies": {
         "dayjs": "^1.11.10",
         "jsonwebtoken": "^9.0.2"
