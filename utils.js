@@ -15,9 +15,9 @@ const jwt = require('jsonwebtoken');
 /**
  * Rounds a number to a certain number of decimal places.
  *
- * @param {Number} number The number to round
- * @param {Number} decimalPlaces The number of decimal places to round to
- * @returns {Number} The rounded number
+ * @param {number} number The number to round.
+ * @param {number} decimalPlaces The number of decimal places to round to.
+ * @returns {number} The rounded number.
  */
 function round(number, decimalPlaces = 6) {
     if (decimalPlaces < 0) {
@@ -32,8 +32,8 @@ function round(number, decimalPlaces = 6) {
 /**
  * Hashes items together using the MD5 algorithmn.
  *
- * @param {Array<String>} data An array of items to hash together
- * @returns {String} A hashed string in hexadecimal
+ * @param {Array<string>} data An array of items to hash together
+ * @returns {string} A hashed string in hexadecimal
  */
 function hash(data) {
     const hash = crypto.createHash('md5');
@@ -44,9 +44,9 @@ function hash(data) {
 /**
  * Checks to see if a JWT is expired.
  *
- * @param {String} token The JWT token to decode and check for expiration
- * @param {Number?} offset The number of seconds it will renew before it actually expires (as a buffer)
- * @returns {Bool} Whether or not the token is expired
+ * @param {string} token The JWT token to decode and check for expiration
+ * @param {number} offset The number of seconds it will renew before it actually expires (as a buffer)
+ * @returns {bool} Whether or not the token is expired
  */
 function isTokenExpired(token, offset = 60) {
     try {

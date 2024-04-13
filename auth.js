@@ -13,10 +13,10 @@ const { hash } = require('./utils');
 /**
  * Fetches an API token to use for eGauge requests.
  *
- * @param {String} eGaugeID The identifier of the eGauge
- * @param {String} username The account username
- * @param {String} password The account password
- * @returns {Promise<String>} The JWT token
+ * @param {string} eGaugeID The identifier of the eGauge
+ * @param {string} username The account username
+ * @param {string} password The account password
+ * @returns {Promise<string>} The JWT token
  */
 async function fetchToken(eGaugeID, username, password) {
     return new Promise((resolve, reject) => {
@@ -41,11 +41,11 @@ async function fetchToken(eGaugeID, username, password) {
 /**
  * Create the authentication payload for digest auth to be sent to eGauge for login token.
  *
- * @param {String} username The account username
- * @param {String} passwor The account password
- * @param {String} realm The realm by request from eGauge
- * @param {String} nonce The nonce by request from eGauge
- * @returns {Object} The auth payload
+ * @param {string} username The account username
+ * @param {string} passwor The account password
+ * @param {string} realm The realm by request from eGauge
+ * @param {string} nonce The nonce by request from eGauge
+ * @returns {object} The auth payload
  */
 function createPayload(username, password, realm, nonce) {
     const cnnc = crypto.randomBytes(64).toString('hex');

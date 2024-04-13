@@ -17,9 +17,9 @@ class Device {
     /**
      * A class that contains all the methods for interacting with the eGauge JSON API.
      *
-     * @param {String} eGaugeID The identifier of the eGauge.
-     * @param {String} username The username of the account.
-     * @param {String} password The password of the account.
+     * @param {string} eGaugeID The identifier of the eGauge.
+     * @param {string} username The username of the account.
+     * @param {string} password The password of the account.
      */
     constructor(eGaugeID, username, password) {
         this.eGaugeID = eGaugeID;
@@ -30,8 +30,8 @@ class Device {
     /**
      * Gets a JWT authorization token for the eGauge device.
      *
-     * @param {Boolean} refresh Option to force refresh the token, for example if 401 error is returned elsewhere (default false)
-     * @returns {Promise<String>} The JWT token for eGauge authentication.
+     * @param {boolean} refresh Option to force refresh the token, for example if 401 error is returned elsewhere (default false)
+     * @returns {Promise<string>} The JWT token for eGauge authentication.
      */
     async getToken(refresh = false) {
         if (
@@ -55,9 +55,9 @@ class Device {
     /**
      * Makes a GET request to eGauge using endpoint and params to get data.
      *
-     * @param {String} endpoint The name of the endpoint to get data from
-     * @param {Object} params An object of URL params where the keys are the param name and values are the values
-     * @returns {Promise<Object>} The data object returned from the response
+     * @param {string} endpoint The name of the endpoint to get data from
+     * @param {object} params An object of URL params where the keys are the param name and values are the values
+     * @returns {Promise<object>} The data object returned from the response
      */
     async getRequest(endpoint, params = {}) {
         const token = await this.getToken();
@@ -96,8 +96,8 @@ class Device {
     /**
      * Get the average register values for a certain timestamp sampled over a certain interval.
      *
-     * @param {Number} unix A UNIX timestamp value for the requested data.
-     * @param {Number} interval The number of seconds to sample over (default: 1 minute)
+     * @param {number} unix A UNIX timestamp value for the requested data.
+     * @param {number} interval The number of seconds to sample over (default: 1 minute)
      */
     async getValuesAtTime(unix, interval = 60) {
         const params = {
@@ -126,10 +126,10 @@ class Device {
     /**
      * Gets the register values for a range of timestamp (including the first and last timestmap) for a certain interval.
      *
-     * @param {Number} startUnix The UNIX timestamp of the first data value
-     * @param {Number} endUnix The UNIX timestamp of the last data value (included)
-     * @param {Number} interval The number of seconds in between data rows (default: 1 minute)
-     * @returns {Promise<Object>} The registers with values
+     * @param {number} startUnix The UNIX timestamp of the first data value
+     * @param {number} endUnix The UNIX timestamp of the last data value (included)
+     * @param {number} interval The number of seconds in between data rows (default: 1 minute)
+     * @returns {Promise<object>} The registers with values
      */
     async getValuesForRange(startUnix, endUnix, interval = 60) {
         const params = {
@@ -165,7 +165,7 @@ class Device {
     /**
      * Gets the time when the meter started recording, known as the epoch.
      *
-     * @returns {Promise<Number>} The UNIX timestamp for the meter epoch
+     * @returns {Promise<number>} The UNIX timestamp for the meter epoch
      */
     async getEpoch() {
         const data = await this.getRequest('/config/db/epoch');
@@ -175,7 +175,7 @@ class Device {
     /**
      * Gets the instantaneous rate data from eGauge.
      *
-     * @returns {Promise<Object>} The register response object.
+     * @returns {Promise<object>} The register response object.
      */
     async getValuesNow() {
         const params = {

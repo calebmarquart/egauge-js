@@ -15,12 +15,12 @@ const Device = require('./egauge');
 const config = require('./config.json');
 
 /**
- * Collect a range of data to a file
+ * Collect a range of data to a file.
  *
- * @param {Device} device The eGauge identifier
- * @param {String} startTime The start timestamp
- * @param {String} endTime The end timestamp
- * @param {String} path The file path to where the CSV will be written
+ * @param {Device} device The eGauge identifier.
+ * @param {string} startTime The start timestamp.
+ * @param {string} endTime The end timestamp.
+ * @param {string} path The file path to where the CSV will be written.
  */
 async function writeCSV(device, startTime, endTime, interval, path) {
     const startUnix = dayjs(startTime).unix();
