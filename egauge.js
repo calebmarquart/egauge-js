@@ -94,6 +94,51 @@ class Device {
     }
 
     /**
+     * Makes a post request.
+     *
+     * @param {string} endpoint The name of the endpoint to get data from.
+     * @param {object} body The POST request body.
+     * @param {object} params Optional URL parameters.
+     * @returns {Promise<object>} The fetch response.
+     */
+    async postRequest(endpoint, body, params = {}) {
+        const token = await this.getToken();
+
+        const urlParams = new URLSearchParams(params);
+
+        const url = `https://${this.eGaugeID}.d.egauge.net/api${endpoint}?${urlParams}`;
+
+        const response = await fetch(url, {
+            method: 'GET',
+            body: JSON.stringify(body),
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response.ok) {
+            return await response.json();
+        } else if (response.status == 401) {
+            const token = await this.getToken(true);
+            const response = await fetch(url, {
+                method: 'GET',
+                body: JSON.stringify(body),
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                return await response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        } else {
+            throw new Error(response.statusText);
+        }
+    }
+
+    /**
      * Get the average register values for a certain timestamp sampled over a certain interval.
      *
      * @param {number} unix A UNIX timestamp value for the requested data.
@@ -193,6 +238,15 @@ class Device {
         }
 
         return registers;
+    }
+
+    /**
+     * Reboots the eGauge device.
+     */
+    async reboot() {
+        const endpoint = '/cmd/reboot';
+
+        await this.postRequest(endpoint, {});
     }
 }
 
