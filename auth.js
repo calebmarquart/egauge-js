@@ -1,3 +1,4 @@
+// @ts-check
 //
 // auth.js
 //
@@ -42,7 +43,7 @@ async function fetchToken(eGaugeID, username, password) {
  * Create the authentication payload for digest auth to be sent to eGauge for login token.
  *
  * @param {string} username The account username
- * @param {string} passwor The account password
+ * @param {string} password The account password
  * @param {string} realm The realm by request from eGauge
  * @param {string} nonce The nonce by request from eGauge
  * @returns {object} The auth payload

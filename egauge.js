@@ -1,3 +1,4 @@
+// @ts-check
 //
 // egauge.js
 //
@@ -247,6 +248,28 @@ class Device {
         const endpoint = '/cmd/reboot';
 
         await this.postRequest(endpoint, {});
+    }
+
+    /**
+     * Gets the current time on the device as a UNIX timestamp.
+     *
+     * @returns {Promise<number>} The UNIX timestamp number.
+     */
+    async getTime() {
+        const endpoint = '/sys/time';
+        const response = await this.getRequest(endpoint);
+        return parseFloat(response.result);
+    }
+
+    /**
+     * Gets the number of seconds of uptime since last reboot.
+     *
+     * @returns {Promise<number>} The number of seconds.
+     */
+    async getUptime() {
+        const endpoint = '/sys/uptime';
+        const response = await this.getRequest(endpoint);
+        return response.result;
     }
 }
 
