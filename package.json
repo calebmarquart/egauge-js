@@ -1,11 +1,15 @@
 {
     "name": "egauge-js",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "An API wrapper for the eGauge JSON Web API",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "url": "https://github.com/calebmarquart/egauge-js"
+    },
     "scripts": {
-        "start": "node index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "tsup"
     },
     "keywords": [
         "eGauge",
@@ -13,9 +17,20 @@
         "JavaScript"
     ],
     "author": "Caleb Marquart",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "license": "MIT",
     "dependencies": {
         "dayjs": "^1.11.10",
         "jsonwebtoken": "^9.0.2"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.6",
+        "@types/node": "^20.14.12",
+        "tsup": "^8.2.3",
+        "typescript": "^5.5.4"
     }
 }
