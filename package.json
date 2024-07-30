@@ -1,6 +1,6 @@
 {
     "name": "egauge-js",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "An API wrapper for the eGauge JSON Web API",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
